@@ -1,0 +1,228 @@
+name: Build Desktop
+
+on:
+  push:
+    tags: ["v*"]
+    paths:
+      - "app/**"
+      - ".github/workflows/build-desktop.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Enable Windows Desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Get Dependencies
+        working-directory: ./app
+        run: flutter pub get
+
+      - name: Build Windows
+        working-directory: ./app
+        run: flutter build windows --release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: romifleur-windows
+          path: app/build/windows/x64/runner/Release/
+
+      - name: Zip Windows App
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          mkdir Romifleur
+          Copy-Item -Path app/build/windows/x64/runner/Release/* -Destination Romifleur -Recurse
+          Compress-Archive -Path Romifleur -DestinationPath romifleur-windows.zip
+
+      - name: Release Windows
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: romifleur-windows.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libgl1-mesa-dev
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Get Dependencies
+        working-directory: ./app
+        run: flutter pub get
+
+      - name: Build Linux
+        working-directory: ./app
+        run: flutter build linux --release
+
+      - name: Check/Create Tarball
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: ./app/build/linux/x64/release/bundle
+        run: |
+          mkdir -p ../Linux_Release/Romifleur
+          cp -r * ../Linux_Release/Romifleur/
+          cd ../Linux_Release
+          tar -czvf ../../../../../romifleur-linux.tar.gz Romifleur
+
+      - name: Create AppImage
+        working-directory: ./app
+        run: |
+          # 1. Install dependencies
+          sudo apt-get install -y libfuse2 file imagemagick
+
+          # 2. Prepare AppDir structure
+          # Flutter apps need the bundle structure preserved with lib/ next to the executable
+          mkdir -p AppDir/usr/share/applications
+          mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+          mkdir -p AppDir/usr/share/romifleur
+          
+          # 3. Copy the entire bundle to a dedicated location
+          cp -r build/linux/x64/release/bundle/* AppDir/usr/share/romifleur/
+          
+          # 4. Create a wrapper script that sets up the environment correctly
+          mkdir -p AppDir/usr/bin
+          cat > AppDir/usr/bin/romifleur <<'WRAPPER'
+          #!/bin/bash
+          # Get the directory where this script is located
+          SELF=$(readlink -f "$0")
+          HERE=${SELF%/*}
+          
+          # Flutter bundle is in ../share/romifleur
+          BUNDLE_DIR="${HERE}/../share/romifleur"
+          
+          # Set library path to find Flutter libs (libapp.so, libflutter_linux_gtk.so, etc.)
+          export LD_LIBRARY_PATH="${BUNDLE_DIR}/lib:${LD_LIBRARY_PATH}"
+          
+          # Change to bundle directory so Flutter can find its assets
+          cd "${BUNDLE_DIR}"
+          
+          # Execute the real Flutter binary
+          exec "${BUNDLE_DIR}/romifleur" "$@"
+          WRAPPER
+          chmod +x AppDir/usr/bin/romifleur
+          
+          # 5. Create Desktop File (no leading spaces!)
+          cat > AppDir/usr/share/applications/romifleur.desktop <<'EOF'
+          [Desktop Entry]
+          Name=Romifleur
+          Exec=romifleur
+          Icon=romifleur
+          Type=Application
+          Categories=Utility;Game;
+          EOF
+          # Remove leading spaces from desktop file (heredoc artifact)
+          sed -i 's/^          //' AppDir/usr/share/applications/romifleur.desktop
+
+          # 6. Create Icon (Resize to 256x256)
+          if [ -f assets/logo-romifleur.png ]; then
+            convert assets/logo-romifleur.png -resize 256x256 AppDir/usr/share/icons/hicolor/256x256/apps/romifleur.png
+          else
+            cp android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png AppDir/usr/share/icons/hicolor/256x256/apps/romifleur.png
+          fi
+
+          # 7. Download linuxdeploy
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          chmod +x linuxdeploy-x86_64.AppImage
+
+          # 8. Build AppImage
+          # Exclude GL/Wayland/DRM libs so the AppImage uses system graphics drivers
+          # This is critical for Wayland compatibility (KDE Plasma, GNOME 40+, etc.)
+          export LINUXDEPLOY_OUTPUT_VERSION=""
+          export EXCLUDE_LIBRARIES="libGL.so.1;libGLX.so.0;libGLdispatch.so.0;libEGL.so.1;libwayland-client.so.0;libwayland-server.so.0;libwayland-egl.so.1;libwayland-cursor.so.0;libdrm.so.2;libgbm.so.1"
+          
+          # Run linuxdeploy - point LD_LIBRARY_PATH to find Flutter libs during bundling
+          LD_LIBRARY_PATH=$PWD/AppDir/usr/share/romifleur/lib:$LD_LIBRARY_PATH ./linuxdeploy-x86_64.AppImage \
+            --appdir AppDir \
+            --desktop-file AppDir/usr/share/applications/romifleur.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/romifleur.png \
+            --output appimage
+
+      - name: Rename AppImage
+        run: mv app/Romifleur*.AppImage romifleur-linux-x86_64.AppImage
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: romifleur-linux-appimage
+          path: romifleur-linux-x86_64.AppImage
+
+      - name: Release Linux (AppImage & Tarball)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            romifleur-linux-x86_64.AppImage
+            app/romifleur-linux.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Enable MacOS Desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Get Dependencies
+        working-directory: ./app
+        run: flutter pub get
+
+      - name: Build MacOS
+        working-directory: ./app
+        run: flutter build macos --release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: romifleur-macos
+          path: app/build/macos/Build/Products/Release/romifleur.app
+
+      - name: Zip MacOS App
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          cd app/build/macos/Build/Products/Release
+          mkdir Romifleur
+          cp -r romifleur.app Romifleur/
+          zip -r romifleur-macos.zip Romifleur
+          
+      - name: Release MacOS
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/macos/Build/Products/Release/romifleur-macos.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
