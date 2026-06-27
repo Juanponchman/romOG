@@ -502,6 +502,152 @@ class RomService {
     return text.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
   }
 
+  /// Tiny async mutex so concurrent segments never interleave a
+  /// setPosition()+writeFrom() pair on the shared RandomAccessFile.
+  /// Network reads still overlap freely; only the brief local write is serialized.
+  Future<T> _withFileLock<T>(Future<T> Function() action) {
+    final previous = _fileLockChain;
+    final completer = Completer<void>();
+    _fileLockChain = completer.future;
+    return previous.then((_) async {
+      try {
+        return await action();
+      } finally {
+        completer.complete();
+      }
+    });
+  }
+  Future<void> _fileLockChain = Future.value();
+
+  /// Multi-mirror segmented download for Internet Archive sources only.
+  /// Splits the file across IA's two independent datacenter mirrors (d1/d2 from
+  /// /metadata/<item>) and downloads 4 byte-range segments concurrently.
+  /// Throws (without side effects) if ANY eligibility check fails before any
+  /// bytes are written, so the caller can silently fall back to single-stream.
+  /// Throws AFTER yielding progress only on a genuine mid-transfer I/O failure.
+  Stream<DownloadProgressEvent> _segmentedDownload({
+    required String downloadUrl,
+    required String filename,
+    required String consoleKey,
+    required String saveDir,
+    String? customPath,
+    required Map<String, dynamic> config,
+    DownloadCancellationToken? cancelToken,
+  }) async* {
+    final uri = Uri.parse(downloadUrl);
+    final parts = uri.pathSegments.where((s) => s.isNotEmpty).toList();
+    if (parts.length < 3 || parts[0] != 'download') {
+      throw Exception('not a segmentable archive.org URL');
+    }
+    final itemId = parts[1];
+    final encodedRelPath = parts.sublist(2).join('/');
+
+    final metaResp = await http.get(Uri.parse('https://archive.org/metadata/$itemId'));
+    if (metaResp.statusCode != 200) throw Exception('metadata fetch failed');
+    final meta = json.decode(metaResp.body) as Map<String, dynamic>;
+    final dir = meta['dir'] as String?;
+    final d1 = meta['d1'] as String?;
+    final d2 = meta['d2'] as String?;
+    if (dir == null || d1 == null || d2 == null || d1.isEmpty || d2.isEmpty || d1 == d2) {
+      throw Exception('mirrors unavailable for $itemId');
+    }
+    final trimmedDir = dir.endsWith('/') ? dir.substring(0, dir.length - 1) : dir;
+    final url1 = 'https://$d1$trimmedDir/$encodedRelPath'\;
+    final url2 = 'https://$d2$trimmedDir/$encodedRelPath'\;
+
+    final probeResp = await http.get(Uri.parse(url1), headers: {'Range': 'bytes=0-0'});
+    if (probeResp.statusCode != 206) throw Exception('range not supported on $url1');
+    final contentRange = probeResp.headers['content-range'];
+    final totalSize = contentRange != null ? (int.tryParse(contentRange.split('/').last) ?? 0) : 0;
+    if (totalSize < 2 * 1024 * 1024) throw Exception('file too small to benefit from segmentation');
+
+    final String saveFilename = Uri.decodeComponent(filename.split('/').last);
+    final String finalPath = (customPath != null && customPath.isNotEmpty)
+        ? p.join(customPath, saveFilename)
+        : p.join(saveDir, config['folder'] ?? consoleKey, saveFilename);
+
+    if (await File(finalPath).exists()) {
+      yield DownloadProgressEvent(progress: 1.0, receivedBytes: totalSize, totalBytes: totalSize);
+      return;
+    }
+
+    await Directory(p.dirname(finalPath)).create(recursive: true);
+    final tmpFile = File('$finalPath.tmp');
+    final raf = await tmpFile.open(mode: FileMode.write);
+    await raf.truncate(totalSize);
+
+    const segCount = 4;
+    final segSize = (totalSize / segCount).ceil();
+    final mirrors = [url1, url2, url1, url2];
+    final receivedPerSeg = List<int>.filled(segCount, 0);
+    bool cancelled = false;
+    cancelToken?.onCancel(() => cancelled = true);
+
+    final controller = StreamController<DownloadProgressEvent>();
+    int totalReceived() => receivedPerSeg.fold(0, (a, b) => a + b);
+    Timer? ticker = Timer.periodic(const Duration(milliseconds: 300), (_) {
+      if (!controller.isClosed) {
+        controller.add(DownloadProgressEvent(
+          progress: totalReceived() / totalSize,
+          receivedBytes: totalReceived(),
+          totalBytes: totalSize,
+        ));
+      }
+    });
+
+    Future<void> downloadSegment(int index) async {
+      final start = index * segSize;
+      final end = ((index + 1) * segSize - 1).clamp(0, totalSize - 1);
+      if (start > end) return;
+      final mirrorUrl = mirrors[index % mirrors.length];
+      final req = http.Request('GET', Uri.parse(mirrorUrl));
+      req.headers['Range'] = 'bytes=$start-$end';
+      req.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)';
+      final segClient = http.Client();
+      try {
+        final response = await segClient.send(req);
+        if (response.statusCode != 206) throw Exception('segment $index: HTTP ${response.statusCode}');
+        int offset = start;
+        await for (final chunk in response.stream) {
+          if (cancelled) throw Exception('cancelled');
+          await _withFileLock(() async {
+            await raf.setPosition(offset);
+            await raf.writeFrom(chunk);
+          });
+          offset += chunk.length;
+          receivedPerSeg[index] = offset - start;
+        }
+      } finally {
+        segClient.close();
+      }
+    }
+
+    Future<void> runAll() async {
+      try {
+        await Future.wait(List.generate(segCount, downloadSegment));
+      } finally {
+        ticker?.cancel();
+        await controller.close();
+      }
+    }
+
+    try {
+      final runFuture = runAll();
+      yield* controller.stream;
+      await runFuture;
+    } finally {
+      await raf.close();
+    }
+
+    final writtenSize = await tmpFile.length();
+    if (writtenSize != totalSize) {
+      await tmpFile.delete();
+      throw Exception('size mismatch: wrote $writtenSize, expected $totalSize');
+    }
+    await tmpFile.rename(finalPath);
+    yield DownloadProgressEvent(progress: 1.0, receivedBytes: totalSize, totalBytes: totalSize);
+  }
+
   Stream<DownloadProgressEvent> downloadFile(
     String category,
     String consoleKey,
@@ -543,6 +689,33 @@ class RomService {
       'Downloading: $downloadUrl${resumeFrom > 0 ? ' (resuming from $resumeFrom bytes)' : ''}',
     );
     _log.info('Save dir: $saveDir (SAF: $useSaf)');
+
+    // Try IA multi-mirror segmented download first. Any failure before bytes
+    // are written falls through silently to the proven single-stream path.
+    if (!useSaf && resumeFrom == 0 && downloadUrl.contains('archive.org/download/')) {
+      bool segStarted = false;
+      try {
+        await for (final progress in _segmentedDownload(
+          downloadUrl: downloadUrl,
+          filename: filename,
+          consoleKey: consoleKey,
+          saveDir: saveDir,
+          customPath: customPath,
+          config: config,
+          cancelToken: cancelToken,
+        )) {
+          segStarted = true;
+          yield progress;
+        }
+        return;
+      } catch (e) {
+        if (segStarted) {
+          _log.warning('Segmented download failed mid-transfer, falling back to single-stream: $e');
+        } else {
+          _log.info('Segmented download not eligible: $e');
+        }
+      }
+    }
 
     // HTTP client with timeouts to detect dead connections
     final rawHttpClient = HttpClient()
