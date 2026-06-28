@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ArchiveAuthService {
-  static const _kBaseUrl = 'https://archive.org'\;
+  static const _kBaseUrl = 'https://archive.org';
   static const _kCookieKey = 'ia_cookie_header';
 
   static ArchiveAuthService? _instance;
