@@ -558,8 +558,8 @@ class RomService {
       throw Exception('mirrors unavailable for $itemId');
     }
     final trimmedDir = dir.endsWith('/') ? dir.substring(0, dir.length - 1) : dir;
-    final url1 = 'https://$d1$trimmedDir/$encodedRelPath'\;
-    final url2 = 'https://$d2$trimmedDir/$encodedRelPath'\;
+    final url1 = 'https://$d1$trimmedDir/$encodedRelPath';
+    final url2 = 'https://$d2$trimmedDir/$encodedRelPath';
 
     final probeResp = await http.get(Uri.parse(url1), headers: {'Range': 'bytes=0-0'});
     if (probeResp.statusCode != 206) throw Exception('range not supported on $url1');
