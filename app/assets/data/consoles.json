@@ -58,6 +58,18 @@
         "Wind Waker",
         "Resident Evil 4",
         "Twilight Princess"
+      ],
+      "alt_url": [
+        "https://archive.org/download/game-cube_202603/",
+        "https://archive.org/download/gcnkitiso1/",
+        "https://archive.org/download/gcnkitiso2/",
+        "https://archive.org/download/gcnkitiso3/",
+        "https://archive.org/download/gcnkitiso3a/"
+      ],
+      "alt_exts": [
+        ".rvz",
+        ".iso",
+        ".zip"
       ]
     },
     "Wii": {
@@ -397,6 +409,13 @@
         "Lumines",
         "Final Fantasy Tactics: War of the Lions",
         "Grand Theft Auto: Vice City Stories"
+      ],
+      "alt_url": [
+        "https://archive.org/download/psp-chd-zstd-redump-part1/",
+        "https://archive.org/download/psp-chd-zstd-redump-part2/"
+      ],
+      "alt_exts": [
+        ".chd"
       ]
     }
   },

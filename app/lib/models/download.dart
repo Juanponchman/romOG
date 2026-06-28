@@ -4,12 +4,17 @@ class DownloadItem {
   final String console;
   final String filename;
   final String size;
+  // Locked at the moment this item was queued, so toggling the RA-only
+  // switch later can't change which source an in-flight/queued download
+  // pulls from.
+  final bool onlyRa;
 
   const DownloadItem({
     required this.category,
     required this.console,
     required this.filename,
     this.size = 'N/A',
+    this.onlyRa = true,
   });
 
   String get displayName => filename.split('/').last;
@@ -20,6 +25,7 @@ class DownloadItem {
       console: json['console'] ?? '',
       filename: json['filename'] ?? '',
       size: json['size'] ?? 'N/A',
+      onlyRa: json['only_ra'] ?? true,
     );
   }
 
@@ -28,6 +34,7 @@ class DownloadItem {
     'console': console,
     'filename': filename,
     'size': size,
+    'only_ra': onlyRa,
   };
 }
 

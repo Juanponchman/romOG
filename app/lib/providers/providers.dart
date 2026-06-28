@@ -85,12 +85,12 @@ class RomsState {
     this.isLoading = false,
     this.error,
     this.searchQuery = '',
-    this.selectedRegions = const {'Europe', 'USA', 'Japan', 'World'},
+    this.selectedRegions = const {},
     this.selectedLanguages = const {},
-    this.hideDemos = true,
-    this.hideBetas = true,
-    this.hideUnlicensed = true,
-    this.onlyRa = false,
+    this.hideDemos = false,
+    this.hideBetas = false,
+    this.hideUnlicensed = false,
+    this.onlyRa = true,
     this.hideOwned = false,
     this.hidePartial = false,
   });
@@ -173,28 +173,12 @@ class RomsNotifier extends StateNotifier<RomsState> {
         hideDemos: state.hideDemos,
         hideBetas: state.hideBetas,
         hideUnlicensed: state.hideUnlicensed,
+        onlyRa: state.onlyRa,
       );
 
-      // 2. Filter RA if checked
-      if (state.onlyRa) {
-        await raService.init(); // ensure loaded
-        final List<RomModel> filtered = [];
-        for (var rom in roms) {
-          if (await raService.checkRomCompatibility(
-            _currentConsoleKey!,
-            rom.displayName,
-          )) {
-            filtered.add(
-              RomModel(
-                filename: rom.filename,
-                size: rom.size,
-                hasAchievements: true,
-              ),
-            );
-          }
-        }
-        roms = filtered;
-      }
+      // 2. RA-curated sources are already RA-compatible by construction.
+      // No display-time title matching needed here; reserved for the future
+      // gap-fill pass against the No-Intro/Redump alt source instead.
 
       // 3. Scan for local ROMs and set ownership status
       try {
@@ -460,7 +444,7 @@ class DownloadQueueNotifier extends StateNotifier<DownloadQueueState> {
     _cancelToken = null;
   }
 
-  void addToQueue(String category, String console, List<RomModel> roms) {
+  void addToQueue(String category, String console, List<RomModel> roms, {bool onlyRa = true}) {
     if (roms.isEmpty) return;
 
     // User Requirement: Block adding while downloading
@@ -483,6 +467,7 @@ class DownloadQueueNotifier extends StateNotifier<DownloadQueueState> {
             console: console,
             filename: rom.filename,
             size: rom.size,
+            onlyRa: onlyRa,
           ),
         );
         currentBytes += _parseSizeToBytes(rom.size);
@@ -748,6 +733,7 @@ class DownloadQueueNotifier extends StateNotifier<DownloadQueueState> {
               customPath: customPath,
               cancelToken: _cancelToken,
               resumeFrom: resumeBytes,
+              onlyRa: item.onlyRa,
             );
 
             await for (final event in stream) {

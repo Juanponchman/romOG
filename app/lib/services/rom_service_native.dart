@@ -197,8 +197,9 @@ class RomService {
     String category,
     String consoleKey, {
     bool forceReload = false,
+    bool onlyRa = true,
   }) async {
-    final cacheKey = '${category}_$consoleKey';
+    final cacheKey = '${category}_${consoleKey}_${onlyRa ? 'ra' : 'alt'}';
     final entry = _cache[cacheKey];
     if (!forceReload && entry != null && !entry.isExpired) {
       return entry.data;
@@ -207,12 +208,16 @@ class RomService {
     final config = _configService.getConsoleConfig(category, consoleKey);
     if (config == null) throw Exception('Console config not found');
 
-    final dynamic urlField = config['url'];
+    // When unchecked, use the No-Intro/Redump alt source if this console has
+    // one configured. If it doesn't, fall back to the RA-curated source
+    // rather than returning nothing.
+    final bool useAlt = !onlyRa && config['alt_url'] != null;
+    final dynamic urlField = useAlt ? config['alt_url'] : config['url'];
 
     // Multi-source merge: url is a JSON array of archive.org item base URLs.
     if (urlField is List) {
       final List<RomModel> mergedRoms = [];
-      final List<dynamic> mergedExts = config['exts'];
+      final List<dynamic> mergedExts = useAlt ? (config['alt_exts'] ?? config['exts']) : config['exts'];
       final mergedValidExts = mergedExts.map((e) => e.toString().toLowerCase()).toList();
       for (final rawUrl in urlField) {
         final itemUrl = rawUrl.toString();
@@ -274,7 +279,7 @@ class RomService {
       _cache[cacheLolKey] = _CacheEntry(lolRoms);
       return lolRoms;
     }
-    final List<dynamic> exts = config['exts'];
+    final List<dynamic> exts = useAlt ? (config['alt_exts'] ?? config['exts']) : config['exts'];
     final validExts = exts.map((e) => e.toString().toLowerCase()).toList();
 
     try {
@@ -418,8 +423,9 @@ class RomService {
     bool hideDemos = true,
     bool hideBetas = true,
     bool hideUnlicensed = true,
+    bool onlyRa = true,
   }) async {
-    var roms = await fetchFileList(category, consoleKey);
+    var roms = await fetchFileList(category, consoleKey, onlyRa: onlyRa);
     final activeRegions = regions ?? [];
     final activeLanguages = languages ?? [];
     List<RomModel> filtered = [];
@@ -656,11 +662,13 @@ class RomService {
     String? customPath,
     DownloadCancellationToken? cancelToken,
     int resumeFrom = 0,
+    bool onlyRa = true,
   }) async* {
     final config = _configService.getConsoleConfig(category, consoleKey);
     if (config == null) throw Exception('Config error');
 
-    final dynamic urlFieldDl = config['url'];
+    final bool useAltDl = !onlyRa && config['alt_url'] != null;
+    final dynamic urlFieldDl = useAltDl ? config['alt_url'] : config['url'];
     String baseUrl = (urlFieldDl is List)
         ? (urlFieldDl.isNotEmpty ? urlFieldDl[0].toString() : '')
         : urlFieldDl as String;

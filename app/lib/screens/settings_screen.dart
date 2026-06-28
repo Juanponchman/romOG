@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../config/theme.dart';
 import '../providers/providers.dart';
+import 'archive_login_screen.dart';
 
 class SettingsDialog extends ConsumerStatefulWidget {
   const SettingsDialog({super.key});
@@ -296,6 +297,33 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
                           child: const Text('Validate'),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Internet Archive Account
+                    Text(
+                      'Internet Archive Account',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Sign in to unlock login-gated download sources',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.lock_outline),
+                        label: const Text('Manage Internet Archive Login'),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const ArchiveLoginScreen(),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 32),
 

@@ -104,6 +104,7 @@ class _RomListPanelState extends ConsumerState<RomListPanel> {
                               selectedConsole.category!,
                               selectedConsole.console!.key,
                               selectedRoms,
+                              onlyRa: ref.read(romsProvider).onlyRa,
                             );
                         ref.read(romsProvider.notifier).deselectAll();
 
