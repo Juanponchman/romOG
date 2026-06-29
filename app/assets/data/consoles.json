@@ -28,6 +28,10 @@
         "Super Metroid",
         "Final Fantasy III",
         "Donkey Kong Country"
+      ],
+      "alt_url": "https://archive.org/download/nointro-snes/",
+      "alt_exts": [
+        ".zip"
       ]
     },
     "N64": {
@@ -43,6 +47,10 @@
         "GoldenEye 007",
         "Majora's Mask",
         "Mario Kart 64"
+      ],
+      "alt_url": "https://archive.org/download/ef_nintendo_64_no-intro_2024-02-10/",
+      "alt_exts": [
+        ".zip"
       ]
     },
     "GameCube": {
@@ -262,6 +270,10 @@
         "Panzer Dragoon Zwei",
         "Shining Force III",
         "Dragon Force"
+      ],
+      "alt_url": "https://archive.org/download/sega_saturn",
+      "alt_exts": [
+        ".zip"
       ]
     },
     "Dreamcast": {
@@ -343,6 +355,16 @@
         "Vagrant Story",
         "Final Fantasy IX",
         "Chrono Cross"
+      ],
+      "alt_url": [
+        "https://archive.org/download/chd_psx/",
+        "https://archive.org/download/chd_psx_eur/",
+        "https://archive.org/download/chd_psx_jap/",
+        "https://archive.org/download/chd_psx_jap_p2/",
+        "https://archive.org/download/chd_psx_misc/"
+      ],
+      "alt_exts": [
+        ".chd"
       ]
     },
     "PS2": {
@@ -390,6 +412,44 @@
         "Resident Evil 4",
         "Devil May Cry 3",
         "Okami"
+      ],
+      "alt_url": [
+        "https://archive.org/download/sony_playstation2_0-9",
+        "https://archive.org/download/sony_playstation2_a",
+        "https://archive.org/download/sony_playstation2_b",
+        "https://archive.org/download/sony_playstation2_c",
+        "https://archive.org/download/sony_playstation2_d_part1",
+        "https://archive.org/download/sony_playstation2_d_part2",
+        "https://archive.org/download/sony_playstation2_e",
+        "https://archive.org/download/sony_playstation2_f",
+        "https://archive.org/download/sony_playstation2_g",
+        "https://archive.org/download/sony_playstation2_h",
+        "https://archive.org/download/sony_playstation2_i",
+        "https://archive.org/download/sony_playstation2_j",
+        "https://archive.org/download/sony_playstation2_k",
+        "https://archive.org/download/sony_playstation2_l",
+        "https://archive.org/download/sony_playstation2_m_part1",
+        "https://archive.org/download/sony_playstation2_m_part2",
+        "https://archive.org/download/sony_playstation2_n",
+        "https://archive.org/download/sony_playstation2_o_part1",
+        "https://archive.org/download/sony_playstation2_o_part2",
+        "https://archive.org/download/sony_playstation2_p",
+        "https://archive.org/download/sony_playstation2_q",
+        "https://archive.org/download/sony_playstation2_r",
+        "https://archive.org/download/sony_playstation2_s_part1",
+        "https://archive.org/download/sony_playstation2_s_part2",
+        "https://archive.org/download/sony_playstation2_s_part3",
+        "https://archive.org/download/sony_playstation2_s_part4",
+        "https://archive.org/download/sony_playstation2_t",
+        "https://archive.org/download/sony_playstation2_u",
+        "https://archive.org/download/sony_playstation2_v",
+        "https://archive.org/download/sony_playstation2_w",
+        "https://archive.org/download/sony_playstation2_x",
+        "https://archive.org/download/sony_playstation2_y",
+        "https://archive.org/download/sony_playstation2_z"
+      ],
+      "alt_exts": [
+        ".zip"
       ]
     },
     "PSP": {
