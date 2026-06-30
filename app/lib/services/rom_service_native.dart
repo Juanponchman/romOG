@@ -13,6 +13,7 @@ import 'package:html/dom.dart';
 import 'package:romifleur/services/config_service.dart';
 import 'package:archive/archive_io.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:romifleur/models/rom.dart';
 import 'package:romifleur/utils/cancellation_token.dart';
 import 'package:romifleur/utils/download_exceptions.dart';
@@ -185,6 +186,7 @@ class _CacheEntry {
   final DateTime createdAt;
   _CacheEntry(this.data) : createdAt = DateTime.now();
 
+  // In-memory cache expires after 30 min; disk cache is valid for 7 days.
   bool get isExpired => DateTime.now().difference(createdAt).inMinutes > 30;
 }
 
@@ -192,6 +194,47 @@ class RomService {
   final ConfigService _configService = ConfigService();
   final Map<String, _CacheEntry> _cache = {};
   static const int _maxCacheEntries = 10;
+  static const int _diskCacheDays = 7;
+
+  Future<String> _diskCachePath(String cacheKey) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final cacheDir = Directory(p.join(dir.path, '.romcache'));
+    await cacheDir.create(recursive: true);
+    // Sanitize key for use as a filename
+    final safeKey = cacheKey.replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
+    return p.join(cacheDir.path, '$safeKey.json');
+  }
+
+  Future<List<RomModel>?> _readDiskCache(String cacheKey) async {
+    try {
+      final path = await _diskCachePath(cacheKey);
+      final file = File(path);
+      if (!await file.exists()) return null;
+      final stat = await file.stat();
+      final age = DateTime.now().difference(stat.modified).inDays;
+      if (age >= _diskCacheDays) {
+        await file.delete();
+        return null;
+      }
+      final raw = json.decode(await file.readAsString()) as List<dynamic>;
+      return raw.map((e) => RomModel(
+        filename: e['filename'] as String,
+        size: e['size'] as String? ?? 'N/A',
+      )).toList();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> _writeDiskCache(String cacheKey, List<RomModel> roms) async {
+    try {
+      final path = await _diskCachePath(cacheKey);
+      final data = roms.map((r) => {'filename': r.filename, 'size': r.size}).toList();
+      await File(path).writeAsString(json.encode(data));
+    } catch (_) {
+      // Non-fatal, just means next launch fetches fresh
+    }
+  }
 
   Future<List<RomModel>> fetchFileList(
     String category,
@@ -200,9 +243,20 @@ class RomService {
     bool onlyRa = true,
   }) async {
     final cacheKey = '${category}_${consoleKey}_${onlyRa ? 'ra' : 'alt'}';
+
+    // 1. In-memory cache (instant, session-only)
     final entry = _cache[cacheKey];
     if (!forceReload && entry != null && !entry.isExpired) {
       return entry.data;
+    }
+
+    // 2. Disk cache (instant after first load, valid for $_diskCacheDays days)
+    if (!forceReload) {
+      final diskHit = await _readDiskCache(cacheKey);
+      if (diskHit != null) {
+        _cache[cacheKey] = _CacheEntry(diskHit);
+        return diskHit;
+      }
     }
 
     final config = _configService.getConsoleConfig(category, consoleKey);
@@ -364,6 +418,8 @@ class RomService {
         _cache.remove(oldest.key);
       }
       _cache[cacheKey] = _CacheEntry(roms);
+      // Write to disk so next app launch loads instantly
+      _writeDiskCache(cacheKey, roms);
       return roms;
     } catch (e) {
       _log.error('Error fetching file list: $e');
