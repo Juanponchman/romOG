@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
@@ -36,7 +37,7 @@ class ArchiveAuthService {
   Future<String?> login(String email, String password) async {
     if (_dio == null) await loadSavedSession();
     try {
-      await _dio!.post(
+      final response = await _dio!.post(
         '/account/login',
         data: 'username=${Uri.encodeComponent(email)}&password=${Uri.encodeComponent(password)}'
             '&remember=CHECKED&referer=https%3A%2F%2Farchive.org%2F&login=true&submit_by_js=true',
@@ -46,8 +47,30 @@ class ArchiveAuthService {
           validateStatus: (s) => s != null && s < 500,
         ),
       );
-      final cookies = await _cookieJar!.loadForRequest(Uri.parse(_kBaseUrl));
-      final hasAuth = cookies.any((c) => c.name == 'logged-in-sig');
+
+      // Primary path: read cookies back from the persisted jar.
+      var cookies = await _cookieJar!.loadForRequest(Uri.parse(_kBaseUrl));
+      var hasAuth = cookies.any((c) => c.name == 'logged-in-sig');
+
+      // Fallback: the jar's interceptor can lag behind the response on the
+      // very first login of a session. Parse Set-Cookie headers directly
+      // off the response itself and force-save them into the jar so we
+      // never rely on jar-write timing to know whether login succeeded.
+      if (!hasAuth) {
+        final rawSetCookie = response.headers.map['set-cookie'];
+        if (rawSetCookie != null) {
+          final parsed = rawSetCookie
+              .map((raw) => Cookie.fromSetCookieValue(raw))
+              .where((c) => c.name == 'logged-in-sig' || c.name == 'logged-in-user')
+              .toList();
+          if (parsed.isNotEmpty) {
+            await _cookieJar!.saveFromResponse(Uri.parse(_kBaseUrl), parsed);
+            cookies = await _cookieJar!.loadForRequest(Uri.parse(_kBaseUrl));
+            hasAuth = cookies.any((c) => c.name == 'logged-in-sig');
+          }
+        }
+      }
+
       if (!hasAuth) return 'Login failed. Check your email and password.';
       _cookieHeader = cookies.map((c) => '${c.name}=${c.value}').join('; ');
       final prefs = await SharedPreferences.getInstance();
