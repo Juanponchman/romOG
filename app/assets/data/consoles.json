@@ -67,13 +67,7 @@
         "Resident Evil 4",
         "Twilight Princess"
       ],
-      "alt_url": [
-        "https://archive.org/download/game-cube_202603/",
-        "https://archive.org/download/gcnkitiso1/",
-        "https://archive.org/download/gcnkitiso2/",
-        "https://archive.org/download/gcnkitiso3/",
-        "https://archive.org/download/gcnkitiso3a/"
-      ],
+      "alt_url": "https://archive.org/download/game-cube_202603/",
       "alt_exts": [
         ".rvz",
         ".iso",
@@ -99,6 +93,13 @@
         "Donkey Kong Country Returns",
         "New Super Mario Bros. Wii",
         "Wii Sports"
+      ],
+      "alt_url": [
+        "https://archive.org/download/redumpwiipalrvz/",
+        "https://archive.org/download/wii-ntsc-j-redump/Wii%5BNTSC-J%5D/"
+      ],
+      "alt_exts": [
+        ".rvz"
       ]
     },
     "GB": {
@@ -114,6 +115,11 @@
         "Pokemon Red",
         "Super Mario Land 2",
         "Gargoyle's Quest"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy.zip/",
+      "alt_exts": [
+        ".gb",
+        ".zip"
       ]
     },
     "GBC": {
@@ -129,6 +135,11 @@
         "Oracle of Seasons",
         "Shantae",
         "Metal Gear Solid"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy%20Color.zip/",
+      "alt_exts": [
+        ".gbc",
+        ".zip"
       ]
     },
     "GBA": {
@@ -144,6 +155,11 @@
         "Minish Cap",
         "Golden Sun",
         "Advance Wars"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy%20Advance.zip/",
+      "alt_exts": [
+        ".gba",
+        ".zip"
       ]
     },
     "NDS": {
@@ -159,6 +175,13 @@
         "HeartGold",
         "Bowser's Inside Story",
         "Phantom Hourglass"
+      ],
+      "alt_url": [
+        "https://archive.org/download/nds_20240419/NDS.zip/"
+      ],
+      "alt_exts": [
+        ".nds",
+        ".zip"
       ]
     },
     "VirtualBoy": {
@@ -181,6 +204,11 @@
       "folder": "dsi",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20DSi/",
       "exts": [
+        ".zip"
+      ],
+      "alt_url": "https://archive.org/download/proper1g1r-collection/ROMs/Nintendo%20-%20Nintendo%20DSi%20%28Decrypted%29.zip/",
+      "alt_exts": [
+        ".nds",
         ".zip"
       ]
     }
@@ -250,6 +278,10 @@
         "Popful Mail",
         "Final Fight CD",
         "Shining Force CD"
+      ],
+      "alt_url": "https://archive.org/download/redump.sega_megacd-segacd/",
+      "alt_exts": [
+        ".chd"
       ]
     },
     "Saturn": {
@@ -296,6 +328,12 @@
         "Power Stone 2",
         "Ikaruga",
         "Rez"
+      ],
+      "alt_url": "https://archive.org/download/sega-dreamcast-redump-collection/",
+      "alt_exts": [
+        ".chd",
+        ".gdi",
+        ".cdi"
       ]
     },
     "GameGear": {
@@ -532,6 +570,11 @@
         "Battle Ace",
         "Granzort",
         "1941: Counter Attack"
+      ],
+      "alt_url": "https://archive.org/download/proper1g1r-collection/ROMs/NEC%20-%20PC%20Engine%20SuperGrafx.zip/",
+      "alt_exts": [
+        ".pce",
+        ".zip"
       ]
     }
   },
@@ -547,6 +590,11 @@
         "Samurai Shodown!",
         "King of Fighters R-1",
         "Metal Slug 1st Mission"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/SNK%20-%20Neo%20Geo%20Pocket.zip/",
+      "alt_exts": [
+        ".ngp",
+        ".zip"
       ]
     },
     "NeoGeoPocketColor": {
@@ -564,6 +612,11 @@
         "Card Fighters' Clash",
         "Last Blade: Beyond the Destiny",
         "SNK Gals' Fighters"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/SNK%20-%20Neo%20Geo%20Pocket%20Color.zip/",
+      "alt_exts": [
+        ".ngc",
+        ".zip"
       ]
     }
   },
@@ -581,6 +634,10 @@
         "Space Invaders",
         "Adventure",
         "Yars' Revenge"
+      ],
+      "alt_url": "https://archive.org/download/nointro.atari-2600/",
+      "alt_exts": [
+        ".7z"
       ]
     },
     "Atari5200": {
@@ -596,6 +653,10 @@
         "Centipede",
         "Joust",
         "Pac-Man"
+      ],
+      "alt_url": "https://archive.org/download/nointro.atari-5200/",
+      "alt_exts": [
+        ".7z"
       ]
     },
     "Atari7800": {
@@ -611,6 +672,11 @@
         "Food Fight",
         "Midnight Mutants",
         "Choplifter!"
+      ],
+      "alt_url": "https://archive.org/download/atari780020190522030141/Atari%20-%207800%20%2820190522-030141%29.zip/",
+      "alt_exts": [
+        ".a78",
+        ".zip"
       ]
     },
     "AtariLynx": {
@@ -626,6 +692,11 @@
         "Todd's Adventures in Slime World",
         "Blue Lightning",
         "Rygar"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Atari%20-%20Lynx.zip/",
+      "alt_exts": [
+        ".lnx",
+        ".zip"
       ]
     },
     "AtariJaguar": {
@@ -641,6 +712,11 @@
         "Iron Soldier",
         "Rayman",
         "Super Burnout"
+      ],
+      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Atari%20-%20Jaguar.zip/",
+      "alt_exts": [
+        ".j64",
+        ".zip"
       ]
     },
     "AtariJaguarCD": {

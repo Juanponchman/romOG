@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' as io;
@@ -187,14 +189,14 @@ class _CacheEntry {
   _CacheEntry(this.data) : createdAt = DateTime.now();
 
   // In-memory cache expires after 30 min; disk cache is valid for 7 days.
-  bool get isExpired => DateTime.now().difference(createdAt).inMinutes > 30;
+  bool get isExpired => false;  // Permanent disk cache - never expires
 }
 
 class RomService {
   final ConfigService _configService = ConfigService();
   final Map<String, _CacheEntry> _cache = {};
   static const int _maxCacheEntries = 10;
-  static const int _diskCacheDays = 7;
+  // Disk cache is permanent; only forceReload (manual refresh) clears it.
 
   Future<String> _diskCachePath(String cacheKey) async {
     final dir = await getApplicationDocumentsDirectory();
@@ -210,12 +212,6 @@ class RomService {
       final path = await _diskCachePath(cacheKey);
       final file = File(path);
       if (!await file.exists()) return null;
-      final stat = await file.stat();
-      final age = DateTime.now().difference(stat.modified).inDays;
-      if (age >= _diskCacheDays) {
-        await file.delete();
-        return null;
-      }
       final raw = json.decode(await file.readAsString()) as List<dynamic>;
       return raw.map((e) => RomModel(
         filename: e['filename'] as String,
@@ -236,6 +232,29 @@ class RomService {
     }
   }
 
+  /// Silently re-fetches a console's list in the background after serving
+  /// cached data instantly. fetchFileList(forceReload: true) internally
+  /// updates both in-memory and disk cache with the fresh full list.
+  /// Never blocks the UI, never throws to the caller.
+  Future<void> _backgroundRefresh(
+    String category,
+    String consoleKey,
+    bool onlyRa,
+    String cacheKey,
+    List<RomModel> cached,
+  ) async {
+    try {
+      final fresh = await fetchFileList(category, consoleKey, forceReload: true, onlyRa: onlyRa);
+      final cachedNames = cached.map((r) => r.filename).toSet();
+      final newOnes = fresh.where((r) => !cachedNames.contains(r.filename)).toList();
+      if (newOnes.isNotEmpty) {
+        _log.info('Background refresh found ' + newOnes.length.toString() + ' new entries for ' + cacheKey);
+      }
+    } catch (e) {
+      _log.warning('Background refresh failed for ' + cacheKey + ': ' + e.toString());
+    }
+  }
+
   Future<List<RomModel>> fetchFileList(
     String category,
     String consoleKey, {
@@ -250,11 +269,14 @@ class RomService {
       return entry.data;
     }
 
-    // 2. Disk cache (instant after first load, valid for $_diskCacheDays days)
+    // 2. Disk cache (permanent, instant after first load).
+    // Return it immediately, then silently refresh in the background so any
+    // newly-added games on the source show up next time without blocking the UI.
     if (!forceReload) {
       final diskHit = await _readDiskCache(cacheKey);
       if (diskHit != null) {
         _cache[cacheKey] = _CacheEntry(diskHit);
+        unawaited(_backgroundRefresh(category, consoleKey, onlyRa, cacheKey, diskHit));
         return diskHit;
       }
     }
@@ -266,6 +288,12 @@ class RomService {
     // one configured. If it doesn't, fall back to the RA-curated source
     // rather than returning nothing.
     final bool useAlt = !onlyRa && config['alt_url'] != null;
+    // Unchecked but this console has no alt source configured yet:
+    // show nothing instead of silently falling back to the RA list.
+    if (!onlyRa && config['alt_url'] == null) {
+      _cache[cacheKey] = _CacheEntry(const []);
+      return const [];
+    }
     final dynamic urlField = useAlt ? config['alt_url'] : config['url'];
 
     // Multi-source merge: url is a JSON array of archive.org item base URLs.
@@ -418,6 +446,8 @@ class RomService {
         _cache.remove(oldest.key);
       }
       _cache[cacheKey] = _CacheEntry(roms);
+      // Save permanently to disk
+      await _writeDiskCache(cacheKey, roms);
       // Write to disk so next app launch loads instantly
       _writeDiskCache(cacheKey, roms);
       return roms;
@@ -724,6 +754,9 @@ class RomService {
     if (config == null) throw Exception('Config error');
 
     final bool useAltDl = !onlyRa && config['alt_url'] != null;
+    if (!onlyRa && config['alt_url'] == null) {
+      throw Exception('No alternate source configured for this console yet.');
+    }
     final dynamic urlFieldDl = useAltDl ? config['alt_url'] : config['url'];
     String baseUrl = (urlFieldDl is List)
         ? (urlFieldDl.isNotEmpty ? urlFieldDl[0].toString() : '')

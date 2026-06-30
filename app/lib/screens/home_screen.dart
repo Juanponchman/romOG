@@ -48,9 +48,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (location == null) {
       if (mounted) {
         await _showSetupDialog();
-        if (mounted) {
-          await _showRaSetupDialog();
-        }
       }
     } else if (!kIsWeb && Platform.isAndroid && config.isSafUri(location)) {
       // Validate SAF permission is still active (can expire after app updates)
@@ -281,7 +278,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         onWillPop: () async => false, // Prevent back button
         child: AlertDialog(
           backgroundColor: AppTheme.cardColor,
-          title: const Text('Welcome to Romifleur'),
+          title: const Text('Welcome to romØG'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
