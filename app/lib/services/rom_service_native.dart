@@ -285,15 +285,8 @@ class RomService {
     if (config == null) throw Exception('Console config not found');
 
     // When unchecked, use the No-Intro/Redump alt source if this console has
-    // one configured. If it doesn't, fall back to the RA-curated source
-    // rather than returning nothing.
+    // one configured. If it doesn't, fall back to the RA-curated source.
     final bool useAlt = !onlyRa && config['alt_url'] != null;
-    // Unchecked but this console has no alt source configured yet:
-    // show nothing instead of silently falling back to the RA list.
-    if (!onlyRa && config['alt_url'] == null) {
-      _cache[cacheKey] = _CacheEntry(const []);
-      return const [];
-    }
     final dynamic urlField = useAlt ? config['alt_url'] : config['url'];
 
     // Multi-source merge: url is a JSON array of archive.org item base URLs.
@@ -754,9 +747,6 @@ class RomService {
     if (config == null) throw Exception('Config error');
 
     final bool useAltDl = !onlyRa && config['alt_url'] != null;
-    if (!onlyRa && config['alt_url'] == null) {
-      throw Exception('No alternate source configured for this console yet.');
-    }
     final dynamic urlFieldDl = useAltDl ? config['alt_url'] : config['url'];
     String baseUrl = (urlFieldDl is List)
         ? (urlFieldDl.isNotEmpty ? urlFieldDl[0].toString() : '')
