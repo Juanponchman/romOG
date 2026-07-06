@@ -24,11 +24,11 @@
 ### 🖥️ Desktop (Windows, macOS, Linux)
 1.  **Download** the latest release for your OS from the [Releases page](../../releases).
 2.  **Extract**:
-    *   **Windows/MacOS**: Extract the zip. You will find a clean `Romifleur/` folder.
+    *   **Windows/MacOS**: Extract the zip. You will find a clean RomOG/` folder.
     *   **Linux**: Download the `.AppImage` (recommended) or the `.tar.gz`.
 3.  **Run**:
-    *   **AppImage**: `chmod +x romifleur-linux-x86_64.AppImage` then `./romifleur...` (or double click).
-    *   **Exe/App**: Run `Romifleur.exe` inside the folder.
+    *   **AppImage**: `chmod +x romOG-linux-x86_64.AppImage` then `./romOG...` (or double click).
+    *   **Exe/App**: Run RomOG.exe` inside the folder.
 4.  **First Run**:
     *   Select a destination folder for your ROMs (e.g., `Documents/ROMs`).
     *   (Optional) Enter your RetroAchievements Web API Key to enable achievement badges.
@@ -40,14 +40,14 @@
 3.  **Setup**: Grant storage permissions when prompted (includes 'Manage All Files' on Android 11+).
 
 ### 🐳 Docker (Web Version)
-Run Romifleur as a web service on your home server (NAS, VPS, Raspberry Pi).
+Run RomOG as a web service on your home server (NAS, VPS, Raspberry Pi).
 
 **docker-compose.yml**
 ```yaml
 services:
-  romifleur:
-    image: ghcr.io/4sitam4/romifleur:latest
-    container_name: romifleur-web
+  romog:
+    image: ghcr.io/Juanponchman/romog:latest
+    container_name: romOG-web
     ports:
       - "8080:8080"
     volumes:
@@ -61,7 +61,7 @@ services:
 
 **Or using pure Docker CLI:**
 ```bash
-docker run -p 8080:8080 -v "/path/to/your/roms:/app/data" ghcr.io/4sitam4/romifleur:latest
+docker run -p 8080:8080 -v "/path/to/your/roms:/app/data" ghcr.io/Juanponchman/romog:latest
 ```
 
 ---
@@ -74,8 +74,8 @@ docker run -p 8080:8080 -v "/path/to/your/roms:/app/data" ghcr.io/4sitam4/romifl
 
 **Clone & Setup:**
 ```bash
-git clone https://github.com/4Sitam4/Romifleur.git
-cd Romifleur/app
+git clone https://github.com/Juanponchman/Romog.git
+cd Romog/app
 flutter pub get
 ```
 
@@ -94,7 +94,7 @@ flutter build macos --release
 flutter build apk --release
 
 # Web (Docker)
-docker build -t romifleur .
+docker build -t romog .
 ```
 
 ---
@@ -111,15 +111,6 @@ Downloaded games are automatically organized by console:
       └── Final Fantasy VII.iso
 ```
 
-## Star History
-
-<a href="https://www.star-history.com/#4Sitam4/Romifleur&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=4Sitam4/Romifleur&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=4Sitam4/Romifleur&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=4Sitam4/Romifleur&type=date&legend=top-left" />
- </picture>
-</a>
 
 ---
 
