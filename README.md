@@ -1,18 +1,9 @@
-# Romifleur
+# RomOG
 
-## Myrient shutdown:
-Unfortunately, Myrient's shutdown is the main reason I've decided to stop developing Romifleur. Myrient was the primary source of ROMs for this project, and while I explored other alternatives, none came close in terms of quality or ease of integration.
-If anyone would like to continue this project, feel free to fork this repository and make it your own.
-Thank you all for your feedback, your time, and your support.
-And a special thanks to Myrient for everything <3
 
-![Romifleur Logo](app/assets/logo-romifleur.png)
+![RomOG Logo](app/assets/logo-romifleur.png)
 ![Desktop Screenshots](assets_readme/image_carousel_desktop/carousel.gif)
 ![Mobile Screenshots](assets_readme/image_carousel_phone_horizontal/carousel.gif)
-
-**Romifleur** is a modern, cross-platform application designed to simplify the process of browsing, organizing, and downloading retro game ROMs. Now rewritten in **Flutter**, it offers a unified experience across **Windows, macOS, Linux, Android, and the Web (Docker)**.
-
-> 📝 **See what's new in the [Changelog](CHANGELOG.md)!**
 
 ## 🚀 Features
 
