@@ -81,8 +81,12 @@
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20DS/",
       "exts": [".zip"],
       "best_games": ["Mario Kart DS","Chrono Trigger","HeartGold","Bowser's Inside Story","Phantom Hourglass"],
-      "alt_url": ["https://archive.org/download/ni-n-ds-dec_202401"],
-      "alt_exts": [".7z",".nds",".zip"]
+      "alt_url": [
+        "https://archive.org/download/nds-collection/Translations/",
+        "https://archive.org/download/nds-collection/",
+        "https://ia800901.us.archive.org/view_archive.php?archive=/31/items/nds_20240419/NDS.zip",
+      ],
+      "alt_exts": [".zip",".nds"]
     },
     "VirtualBoy": {
       "name": "Virtual Boy",
