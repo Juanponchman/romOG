@@ -4,220 +4,100 @@
       "name": "NES",
       "folder": "nes",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20Entertainment%20System/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Super Mario Bros. 3",
-        "Legend of Zelda",
-        "Metroid",
-        "Mega Man 2",
-        "Castlevania III"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Super Mario Bros. 3","Legend of Zelda","Metroid","Mega Man 2","Castlevania III"],
       "alt_url": "https://archive.org/download/theentirenintendoentertainmentsystemcollection/",
-      "alt_exts": [
-        ".7z",
-        ".zip"
-      ]
+      "alt_exts": [".7z",".zip"]
     },
     "SNES": {
       "name": "SNES",
       "folder": "snes",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Super%20Nintendo%20Entertainment%20System/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Chrono Trigger",
-        "Link to the Past",
-        "Super Metroid",
-        "Final Fantasy III",
-        "Donkey Kong Country"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Chrono Trigger","Link to the Past","Super Metroid","Final Fantasy III","Donkey Kong Country"],
       "alt_url": "https://archive.org/download/theentiresupernintendoentertainmentsystemcollection/",
-      "alt_exts": [
-        ".7z",
-        ".zip"
-      ]
+      "alt_exts": [".7z",".zip"]
     },
     "N64": {
       "name": "Nintendo 64",
       "folder": "n64",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%2064/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Ocarina of Time",
-        "Super Mario 64",
-        "GoldenEye 007",
-        "Majora's Mask",
-        "Mario Kart 64"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Ocarina of Time","Super Mario 64","GoldenEye 007","Majora's Mask","Mario Kart 64"],
       "alt_url": "https://archive.org/download/ef_nintendo_64_no-intro_2024-02-10/",
-      "alt_exts": [
-        ".zip"
-      ]
+      "alt_exts": [".zip"]
     },
     "GameCube": {
       "name": "GameCube",
       "folder": "gamecube",
       "url": "https://archive.org/download/retroachievements-gamecube-complete-collection/",
-      "exts": [
-        ".rvz"
-      ],
-      "best_games": [
-        "Metroid Prime",
-        "Super Smash Bros. Melee",
-        "Wind Waker",
-        "Resident Evil 4",
-        "Twilight Princess"
-      ],
+      "exts": [".rvz"],
+      "best_games": ["Metroid Prime","Super Smash Bros. Melee","Wind Waker","Resident Evil 4","Twilight Princess"],
       "alt_url": "https://archive.org/download/game-cube_202603/",
-      "alt_exts": [
-        ".rvz",
-        ".iso",
-        ".zip"
-      ]
+      "alt_exts": [".rvz",".iso",".zip"]
     },
     "Wii": {
       "name": "Nintendo Wii",
       "folder": "wii",
       "url": "https://archive.org/download/RetroAchievementsWii/",
-      "exts": [
-        ".wad",
-        ".rvz"
-      ],
-      "best_games": [
-        "Super Mario Galaxy",
-        "Super Mario Galaxy 2",
-        "Xenoblade Chronicles",
-        "Skyward Sword",
-        "Super Smash Bros. Brawl",
-        "Mario Kart Wii",
-        "Metroid Prime Trilogy",
-        "Donkey Kong Country Returns",
-        "New Super Mario Bros. Wii",
-        "Wii Sports"
-      ],
+      "exts": [".wad",".rvz"],
+      "best_games": ["Super Mario Galaxy","Super Mario Galaxy 2","Xenoblade Chronicles","Skyward Sword","Super Smash Bros. Brawl","Mario Kart Wii","Metroid Prime Trilogy","Donkey Kong Country Returns","New Super Mario Bros. Wii","Wii Sports"],
       "alt_url": [
         "https://archive.org/download/redumpwiipalrvz/",
         "https://archive.org/download/wii-ntsc-j-redump/Wii%5BNTSC-J%5D/"
       ],
-      "alt_exts": [
-        ".rvz"
-      ]
+      "alt_exts": [".rvz"]
     },
     "GB": {
       "name": "Game Boy",
       "folder": "gb",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20Game%20Boy/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Tetris",
-        "Link's Awakening",
-        "Pokemon Red",
-        "Super Mario Land 2",
-        "Gargoyle's Quest"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Tetris","Link's Awakening","Pokemon Red","Super Mario Land 2","Gargoyle's Quest"],
       "alt_url": "https://archive.org/download/theentiregameboycollection/",
-      "alt_exts": [
-        ".gb",
-        ".zip"
-      ]
+      "alt_exts": [".gb",".zip"]
     },
     "GBC": {
       "name": "Game Boy Color",
       "folder": "gbc",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20Game%20Boy%20Color/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Pokemon Gold",
-        "Oracle of Ages",
-        "Oracle of Seasons",
-        "Shantae",
-        "Metal Gear Solid"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Pokemon Gold","Oracle of Ages","Oracle of Seasons","Shantae","Metal Gear Solid"],
       "alt_url": "https://archive.org/download/ef_GBC_No-Intro/",
-      "alt_exts": [
-        ".gbc",
-        ".zip"
-      ]
+      "alt_exts": [".gbc",".zip"]
     },
     "GBA": {
       "name": "Game Boy Advance",
       "folder": "gba",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20Game%20Boy%20Advance/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Aria of Sorrow",
-        "Metroid Fusion",
-        "Minish Cap",
-        "Golden Sun",
-        "Advance Wars"
-      ],
+      "exts": [".zip"],
+      "best_games": ["Aria of Sorrow","Metroid Fusion","Minish Cap","Golden Sun","Advance Wars"],
       "alt_url": "https://archive.org/download/ef_gba_no-intro_2024-02-21/",
-      "alt_exts": [
-        ".gba",
-        ".zip"
-      ]
+      "alt_exts": [".gba",".zip"]
     },
     "NDS": {
       "name": "Nintendo DS",
       "folder": "nds",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20DS/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Mario Kart DS",
-        "Chrono Trigger",
-        "HeartGold",
-        "Bowser's Inside Story",
-        "Phantom Hourglass"
-      ],
-      "alt_url": [
-        "https://archive.org/download/ni-n-ds-dec_202401"
-      ],
-      "alt_exts": [
-        ".7z",
-        ".nds",
-        ".zip"
-      ]
+      "exts": [".zip"],
+      "best_games": ["Mario Kart DS","Chrono Trigger","HeartGold","Bowser's Inside Story","Phantom Hourglass"],
+      "alt_url": ["https://archive.org/download/ni-n-ds-dec_202401"],
+      "alt_exts": [".7z",".nds",".zip"]
     },
     "VirtualBoy": {
       "name": "Virtual Boy",
       "folder": "virtualboy",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20Virtual%20Boy/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Virtual Boy Wario Land",
-        "Mario's Tennis",
-        "Teleroboxer",
-        "Red Alarm",
-        "Galactic Pinball"
-      ]
+      "exts": [".zip"],
+      "best_games": ["Virtual Boy Wario Land","Mario's Tennis","Teleroboxer","Red Alarm","Galactic Pinball"]
     },
     "DSi": {
       "name": "Nintendo DSi",
       "folder": "dsi",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Nintendo%20DSi/",
-      "exts": [
-        ".zip"
-      ],
+      "exts": [".zip"],
       "alt_url": "https://archive.org/download/proper1g1r-collection/ROMs/Nintendo%20-%20Nintendo%20DSi%20%28Decrypted%29.zip/",
-      "alt_exts": [
-        ".nds",
-        ".zip"
-      ]
+      "alt_exts": [".nds",".zip"]
     }
   },
   "Sega": {
@@ -225,157 +105,69 @@
       "name": "Master System",
       "folder": "mastersystem",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Sega%20Master%20System/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Alex Kidd in Miracle World",
-        "Wonder Boy III: The Dragon's Trap",
-        "Phantasy Star",
-        "Sonic the Hedgehog",
-        "Psycho Fox"
-      ]
+      "exts": [".zip"],
+      "best_games": ["Alex Kidd in Miracle World","Wonder Boy III: The Dragon's Trap","Phantasy Star","Sonic the Hedgehog","Psycho Fox"]
     },
     "MegaDrive": {
       "name": "Mega Drive / Genesis",
       "folder": "megadrive",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Sega%20Genesis/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Sonic 2",
-        "Streets of Rage 2",
-        "Gunstar Heroes",
-        "Phantasy Star IV",
-        "Shinobi III"
-      ]"alt_url": "https://archive.org/download/nointro.md/",
-      "alt_exts": [
-        ".7z"
+      "exts": [".zip"],
+      "best_games": ["Sonic 2","Streets of Rage 2","Gunstar Heroes","Phantasy Star IV","Shinobi III"],
+      "alt_url": "https://archive.org/download/nointro.md/",
+      "alt_exts": [".7z"]
     },
     "Sega32X": {
       "name": "Sega 32X",
       "folder": "sega32x",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Sega%2032X/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Knuckles' Chaotix",
-        "Star Wars Arcade",
-        "Virtua Fighter",
-        "Doom",
-        "Kolibri"
-      ]"alt_url": "https://https://archive.org/download/ni-se-32x/",
-      "alt_exts": [
-        ".7z"
+      "exts": [".zip"],
+      "best_games": ["Knuckles' Chaotix","Star Wars Arcade","Virtua Fighter","Doom","Kolibri"],
+      "alt_url": "https://archive.org/download/ni-se-32x/",
+      "alt_exts": [".7z"]
     },
     "SegaCD": {
       "name": "Sega CD / Mega-CD",
       "folder": "segacd",
       "url": "https://archive.org/download/rd-se-mcd/",
-      "exts": [
-        ".zip",
-        ".7z",
-        ".chd",
-        ".bin",
-        ".cue"
-      ],
-      "best_games": [
-        "Sonic CD",
-        "Lunar: The Silver Star",
-        "Lunar 2: Eternal Blue",
-        "Snatcher",
-        "Popful Mail",
-        "Final Fight CD",
-        "Shining Force CD"
-      ],
+      "exts": [".zip",".7z",".chd",".bin",".cue"],
+      "best_games": ["Sonic CD","Lunar: The Silver Star","Lunar 2: Eternal Blue","Snatcher","Popful Mail","Final Fight CD","Shining Force CD"],
       "alt_url": "https://archive.org/download/redump.sega_megacd-segacd/",
-      "alt_exts": [
-        ".chd"
-      ]
+      "alt_exts": [".chd"]
     },
     "Saturn": {
       "name": "Sega Saturn",
       "folder": "saturn",
       "url": "https://ia800602.us.archive.org/view_archive.php?archive=/16/items/myrient-retroachievements-sega-saturn-roms-october-30-2025/Myrient%20Retroachievements%20sega%20saturn%20roms%20%28October%2030%202025%29.zip",
-      "exts": [
-        ".chd"
-      ],
-      "best_games": [
-        "Panzer Dragoon Saga",
-        "Nights Into Dreams",
-        "Sega Rally",
-        "Virtua Fighter 2",
-        "Radiant Silvergun",
-        "Guardian Heroes",
-        "Saturn Bomberman",
-        "Panzer Dragoon Zwei",
-        "Shining Force III",
-        "Dragon Force"
-      ],
+      "exts": [".chd"],
+      "best_games": ["Panzer Dragoon Saga","Nights Into Dreams","Sega Rally","Virtua Fighter 2","Radiant Silvergun","Guardian Heroes","Saturn Bomberman","Panzer Dragoon Zwei","Shining Force III","Dragon Force"],
       "alt_url": "https://archive.org/download/sega_saturn",
-      "alt_exts": [
-        ".zip"
-      ]
+      "alt_exts": [".zip"]
     },
     "Dreamcast": {
       "name": "Dreamcast",
       "folder": "dreamcast",
       "url": "https://ia800800.us.archive.org/view_archive.php?archive=/30/items/retroachievements-dreamcast-october-24-2025_202603/Retroachievements%20dreamcast%20%28October%2024%202025%29.zip",
-      "exts": [
-        ".chd"
-      ],
-      "best_games": [
-        "SoulCalibur",
-        "Jet Set Radio",
-        "Skies of Arcadia",
-        "Crazy Taxi",
-        "Marvel vs. Capcom 2",
-        "Resident Evil Code: Veronica",
-        "Phantasy Star Online",
-        "Shenmue",
-        "Sonic Adventure",
-        "Power Stone 2",
-        "Ikaruga",
-        "Rez"
-      ],
+      "exts": [".chd"],
+      "best_games": ["SoulCalibur","Jet Set Radio","Skies of Arcadia","Crazy Taxi","Marvel vs. Capcom 2","Resident Evil Code: Veronica","Phantasy Star Online","Shenmue","Sonic Adventure","Power Stone 2","Ikaruga","Rez"],
       "alt_url": "https://archive.org/download/sega-dreamcast-redump-collection/",
-      "alt_exts": [
-        ".chd",
-        ".gdi",
-        ".cdi"
-      ]
+      "alt_exts": [".chd",".gdi",".cdi"]
     },
     "GameGear": {
       "name": "Game Gear",
       "folder": "gamegear",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Sega%20Game%20Gear/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Sonic Chaos",
-        "GG Shinobi",
-        "Ax Battler",
-        "Defenders of Oasis",
-        "Columns"
-      ]https://archive.org/download/ni-se-gg
+      "exts": [".zip"],
+      "best_games": ["Sonic Chaos","GG Shinobi","Ax Battler","Defenders of Oasis","Columns"],
+      "alt_url": "https://archive.org/download/ni-se-gg",
+      "alt_exts": [".zip"]
     },
     "SG1000": {
       "name": "SG-1000",
       "folder": "sg1000",
       "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Sega%20SG-1000/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Girl's Garden",
-        "Monaco GP",
-        "Lode Runner",
-        "Flicky",
-        "Champion Baseball"
-      ]
+      "exts": [".zip"],
+      "best_games": ["Girl's Garden","Monaco GP","Lode Runner","Flicky","Champion Baseball"]
     }
   },
   "Sony": {
@@ -383,28 +175,8 @@
       "name": "PlayStation 1",
       "folder": "psx",
       "url": "https://archive.org/download/2024-sony-playstation-usa-hearto-1g1r-collection/2024-sony-playstation-usa-hearto-1g1r-collection/Sony%20-%20Playstation%20-%20USA/",
-      "exts": [
-        ".zip",
-        ".7z",
-        ".chd",
-        ".bin"
-      ],
-      "best_games": [
-        "Metal Gear Solid",
-        "Final Fantasy VII",
-        "Symphony of the Night",
-        "Tekken 3",
-        "Tony Hawk's Pro Skater 2",
-        "Resident Evil 2",
-        "Gran Turismo 2",
-        "Silent Hill",
-        "Crash Bandicoot 3",
-        "Spyro the Dragon",
-        "Tomb Raider",
-        "Vagrant Story",
-        "Final Fantasy IX",
-        "Chrono Cross"
-      ],
+      "exts": [".zip",".7z",".chd",".bin"],
+      "best_games": ["Metal Gear Solid","Final Fantasy VII","Symphony of the Night","Tekken 3","Tony Hawk's Pro Skater 2","Resident Evil 2","Gran Turismo 2","Silent Hill","Crash Bandicoot 3","Spyro the Dragon","Tomb Raider","Vagrant Story","Final Fantasy IX","Chrono Cross"],
       "alt_url": [
         "https://archive.org/download/chd_psx/",
         "https://archive.org/download/chd_psx_eur/",
@@ -412,9 +184,7 @@
         "https://archive.org/download/chd_psx_jap_p2/",
         "https://archive.org/download/chd_psx_misc/"
       ],
-      "alt_exts": [
-        ".chd"
-      ]
+      "alt_exts": [".chd"]
     },
     "PS2": {
       "name": "PlayStation 2",
@@ -447,21 +217,8 @@
         "https://archive.org/download/y-ps2-retroachievements-roms/",
         "https://archive.org/download/z-ps2-retroachievements-roms/"
       ],
-      "exts": [
-        ".chd"
-      ],
-      "best_games": [
-        "Grand Theft Auto: San Andreas",
-        "Metal Gear Solid 3",
-        "Final Fantasy X",
-        "God of War II",
-        "Shadow of the Colossus",
-        "Kingdom Hearts II",
-        "Persona 4",
-        "Resident Evil 4",
-        "Devil May Cry 3",
-        "Okami"
-      ],
+      "exts": [".chd"],
+      "best_games": ["Grand Theft Auto: San Andreas","Metal Gear Solid 3","Final Fantasy X","God of War II","Shadow of the Colossus","Kingdom Hearts II","Persona 4","Resident Evil 4","Devil May Cry 3","Okami"],
       "alt_url": [
         "https://archive.org/download/sony_playstation2_0-9",
         "https://archive.org/download/sony_playstation2_a",
@@ -497,35 +254,19 @@
         "https://archive.org/download/sony_playstation2_y",
         "https://archive.org/download/sony_playstation2_z"
       ],
-      "alt_exts": [
-        ".zip"
-      ]
+      "alt_exts": [".zip"]
     },
     "PSP": {
       "name": "PlayStation Portable",
       "folder": "psp",
       "url": "https://archive.org/download/retroachievements-playstation-portable-complete-collection/",
-      "exts": [
-        ".chd"
-      ],
-      "best_games": [
-        "God of War: Ghost of Sparta",
-        "Persona 3 Portable",
-        "Crisis Core",
-        "Metal Gear Solid: Peace Walker",
-        "Monster Hunter Freedom Unite",
-        "Kingdom Hearts: Birth by Sleep",
-        "Lumines",
-        "Final Fantasy Tactics: War of the Lions",
-        "Grand Theft Auto: Vice City Stories"
-      ],
+      "exts": [".chd"],
+      "best_games": ["God of War: Ghost of Sparta","Persona 3 Portable","Crisis Core","Metal Gear Solid: Peace Walker","Monster Hunter Freedom Unite","Kingdom Hearts: Birth by Sleep","Lumines","Final Fantasy Tactics: War of the Lions","Grand Theft Auto: Vice City Stories"],
       "alt_url": [
         "https://archive.org/download/psp-chd-zstd-redump-part1/",
         "https://archive.org/download/psp-chd-zstd-redump-part2/"
       ],
-      "alt_exts": [
-        ".chd"
-      ]
+      "alt_exts": [".chd"]
     }
   }
 }
