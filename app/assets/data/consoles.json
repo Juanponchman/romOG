@@ -13,6 +13,11 @@
         "Metroid",
         "Mega Man 2",
         "Castlevania III"
+      ],
+      "alt_url": "https://archive.org/download/theentirenintendoentertainmentsystemcollection/",
+      "alt_exts": [
+        ".7z",
+        ".zip"
       ]
     },
     "SNES": {
@@ -29,8 +34,9 @@
         "Final Fantasy III",
         "Donkey Kong Country"
       ],
-      "alt_url": "https://archive.org/download/nointro-snes/",
+      "alt_url": "https://archive.org/download/theentiresupernintendoentertainmentsystemcollection/",
       "alt_exts": [
+        ".7z",
         ".zip"
       ]
     },
@@ -116,7 +122,7 @@
         "Super Mario Land 2",
         "Gargoyle's Quest"
       ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy.zip/",
+      "alt_url": "https://archive.org/download/theentiregameboycollection/",
       "alt_exts": [
         ".gb",
         ".zip"
@@ -136,7 +142,7 @@
         "Shantae",
         "Metal Gear Solid"
       ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy%20Color.zip/",
+      "alt_url": "https://archive.org/download/ef_GBC_No-Intro/",
       "alt_exts": [
         ".gbc",
         ".zip"
@@ -156,7 +162,7 @@
         "Golden Sun",
         "Advance Wars"
       ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Nintendo%20-%20Game%20Boy%20Advance.zip/",
+      "alt_url": "https://archive.org/download/ef_gba_no-intro_2024-02-21/",
       "alt_exts": [
         ".gba",
         ".zip"
@@ -177,9 +183,10 @@
         "Phantom Hourglass"
       ],
       "alt_url": [
-        "https://archive.org/download/nds_20240419/NDS.zip/"
+        "https://archive.org/download/ni-n-ds-dec_202401"
       ],
       "alt_exts": [
+        ".7z",
         ".nds",
         ".zip"
       ]
@@ -242,7 +249,9 @@
         "Gunstar Heroes",
         "Phantasy Star IV",
         "Shinobi III"
-      ]
+      ]"alt_url": "https://archive.org/download/nointro.md/",
+      "alt_exts": [
+        ".7z"
     },
     "Sega32X": {
       "name": "Sega 32X",
@@ -257,7 +266,9 @@
         "Virtua Fighter",
         "Doom",
         "Kolibri"
-      ]
+      ]"alt_url": "https://https://archive.org/download/ni-se-32x/",
+      "alt_exts": [
+        ".7z"
     },
     "SegaCD": {
       "name": "Sega CD / Mega-CD",
@@ -349,7 +360,7 @@
         "Ax Battler",
         "Defenders of Oasis",
         "Columns"
-      ]
+      ]https://archive.org/download/ni-se-gg
     },
     "SG1000": {
       "name": "SG-1000",
@@ -514,224 +525,6 @@
       ],
       "alt_exts": [
         ".chd"
-      ]
-    }
-  },
-  "NEC": {
-    "PC_Engine": {
-      "name": "PC Engine / TurboGrafx-16",
-      "folder": "pcengine",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20NEC%20TurboGrafx-16/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "R-Type",
-        "Bonk's Adventure",
-        "Bomberman '93",
-        "Ninja Spirit",
-        "Military Madness",
-        "Alien Crush",
-        "Blazing Lazers",
-        "Neutopia"
-      ]
-    },
-    "PC_Engine_CD": {
-      "name": "PC Engine CD / TurboGrafx-CD",
-      "folder": "pcenginecd",
-      "url": "https://archive.org/download/NEC_PC_Engine_CD-ROM2_System_and_TurboGrafx-CD_2016_Reference_Set_Redump_Validated_ROMs/",
-      "exts": [
-        ".zip",
-        ".7z",
-        ".chd",
-        ".bin",
-        ".cue"
-      ],
-      "best_games": [
-        "Ys Book I & II",
-        "Castlevania: Rondo of Blood",
-        "Dracula X: Chi no Rondo",
-        "Lords of Thunder",
-        "Gate of Thunder",
-        "Snatcher",
-        "Dynastic Hero"
-      ]
-    },
-    "SuperGrafx": {
-      "name": "SuperGrafx",
-      "folder": "supergrafx",
-      "url": "https://ia601404.us.archive.org/view_archive.php?archive=/7/items/no-intro_romset_collection/NEC%20-%20PC%20Engine%20SuperGrafx.7z",
-      "exts": [
-        ".7z"
-      ],
-      "best_games": [
-        "Ghouls 'n Ghosts",
-        "Aldynes",
-        "Battle Ace",
-        "Granzort",
-        "1941: Counter Attack"
-      ],
-      "alt_url": "https://archive.org/download/proper1g1r-collection/ROMs/NEC%20-%20PC%20Engine%20SuperGrafx.zip/",
-      "alt_exts": [
-        ".pce",
-        ".zip"
-      ]
-    }
-  },
-  "SNK": {
-    "NeoGeoPocket": {
-      "name": "Neo Geo Pocket",
-      "folder": "ngp",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20SNK%20Neo%20Geo%20Pocket/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Samurai Shodown!",
-        "King of Fighters R-1",
-        "Metal Slug 1st Mission"
-      ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/SNK%20-%20Neo%20Geo%20Pocket.zip/",
-      "alt_exts": [
-        ".ngp",
-        ".zip"
-      ]
-    },
-    "NeoGeoPocketColor": {
-      "name": "Neo Geo Pocket Color",
-      "folder": "ngpc",
-      "url": "https://ia601404.us.archive.org/view_archive.php?archive=/7/items/no-intro_romset_collection/SNK%20-%20Neo%20Geo%20Pocket%20Color.7z",
-      "exts": [
-        ".7z"
-      ],
-      "best_games": [
-        "SNK vs. Capcom: Match of the Millennium",
-        "Metal Slug 2nd Mission",
-        "King of Fighters R-2",
-        "Sonic the Hedgehog Pocket Adventure",
-        "Card Fighters' Clash",
-        "Last Blade: Beyond the Destiny",
-        "SNK Gals' Fighters"
-      ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/SNK%20-%20Neo%20Geo%20Pocket%20Color.zip/",
-      "alt_exts": [
-        ".ngc",
-        ".zip"
-      ]
-    }
-  },
-  "Atari": {
-    "Atari2600": {
-      "name": "Atari 2600",
-      "folder": "atari2600",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Atari%202600/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Pitfall!",
-        "River Raid",
-        "Space Invaders",
-        "Adventure",
-        "Yars' Revenge"
-      ],
-      "alt_url": "https://archive.org/download/nointro.atari-2600/",
-      "alt_exts": [
-        ".7z"
-      ]
-    },
-    "Atari5200": {
-      "name": "Atari 5200",
-      "folder": "atari5200",
-      "url": "https://ia601404.us.archive.org/view_archive.php?archive=/7/items/no-intro_romset_collection/Atari%20-%205200.7z",
-      "exts": [
-        ".7z"
-      ],
-      "best_games": [
-        "Moon Patrol",
-        "Robotron: 2084",
-        "Centipede",
-        "Joust",
-        "Pac-Man"
-      ],
-      "alt_url": "https://archive.org/download/nointro.atari-5200/",
-      "alt_exts": [
-        ".7z"
-      ]
-    },
-    "Atari7800": {
-      "name": "Atari 7800",
-      "folder": "atari7800",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Atari%207800/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Ninja Golf",
-        "Alien Brigade",
-        "Food Fight",
-        "Midnight Mutants",
-        "Choplifter!"
-      ],
-      "alt_url": "https://archive.org/download/atari780020190522030141/Atari%20-%207800%20%2820190522-030141%29.zip/",
-      "alt_exts": [
-        ".a78",
-        ".zip"
-      ]
-    },
-    "AtariLynx": {
-      "name": "Atari Lynx",
-      "folder": "atarilynx",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Atari%20Lynx/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "California Games",
-        "Chip's Challenge",
-        "Todd's Adventures in Slime World",
-        "Blue Lightning",
-        "Rygar"
-      ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Atari%20-%20Lynx.zip/",
-      "alt_exts": [
-        ".lnx",
-        ".zip"
-      ]
-    },
-    "AtariJaguar": {
-      "name": "Atari Jaguar",
-      "folder": "atarijaguar",
-      "url": "https://archive.org/download/RetroAchievementsSets/RA%20-%20Atari%20Jaguar/",
-      "exts": [
-        ".zip"
-      ],
-      "best_games": [
-        "Tempest 2000",
-        "Alien vs. Predator",
-        "Iron Soldier",
-        "Rayman",
-        "Super Burnout"
-      ],
-      "alt_url": "https://archive.org/download/No-Intro-Collection_2016-01-03_Fixed/Atari%20-%20Jaguar.zip/",
-      "alt_exts": [
-        ".j64",
-        ".zip"
-      ]
-    },
-    "AtariJaguarCD": {
-      "name": "Atari Jaguar CD",
-      "folder": "atarijaguarcd",
-      "url": "https://ia800809.us.archive.org/view_archive.php?archive=/33/items/myrient-retroachievements-atari-jaguar-cd-roms-october-25-2025/Myrient%20Retroachievements%20Atari%20Jaguar%20cd%20roms%20%28October%2025%202025%29.zip",
-      "exts": [
-        ".cdi"
-      ],
-      "best_games": [
-        "Myst",
-        "Primal Rage",
-        "Battlemorph",
-        "Highlander",
-        "World Tour Racing"
       ]
     }
   }
